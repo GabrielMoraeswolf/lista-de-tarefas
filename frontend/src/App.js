@@ -1,25 +1,41 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import TaskForm from './components/TaskForm';
+import TaskList from './components/TaskList';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [tasks, setTasks] = useState([]);
+
+  const addTask = (taskName) => {
+    setTasks([
+      ...tasks,
+      {
+        id: Date.now(),
+        name: taskName,
+        status: 'Pendente', // Pode adicionar mais estados se necessário
+      },
+    ]);
+  };
+
+  const editTask = (taskId, updatedTaskName) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === taskId ? { ...task, name: updatedTaskName } : task
+      )
+    );
+  };
+
+  const removeTask = (taskId) => {
+    setTasks(tasks.filter((task) => task.id !== taskId));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Lista de Tarefas</h1>
+      <TaskForm addTask={addTask} />
+      <TaskList tasks={tasks} editTask={editTask} removeTask={removeTask} />
     </div>
   );
-}
+};
 
 export default App;

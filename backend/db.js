@@ -1,7 +1,14 @@
+require('dotenv').config();
 const { Sequelize, DataTypes } = require('sequelize');
 const config = require('./config');
 
-const sequelize = new Sequelize(config.development);
+const sequelize = new Sequelize({
+  dialect: config.development.dialect,
+  host: config.development.host,
+  username: config.development.username,
+  password: config.development.password,
+  database: config.development.database,
+});
 
 sequelize
   .authenticate()

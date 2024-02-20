@@ -1,13 +1,13 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { sequelize, Tarefa } = require('./db');
 
+
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-
-
 
 // Sincronizar o modelo com o banco de dados
 sequelize.sync()
@@ -33,6 +33,11 @@ sequelize.sync()
       try {
         const { id } = req.params;
         const { descricao, status } = req.body;
+
+        if (!['Pendente', 'Finalizada', 'Cancelada'].includes(status)) {
+          return res.status(400).send('Status inválido');
+        }
+
         const tarefa = await Tarefa.findByPk(id);
 
         if (!tarefa) {
@@ -93,7 +98,7 @@ sequelize.sync()
     });
 
     // Iniciar o servidor
-    const PORT = process.env.PORT || 3000;
+    const PORT = process.env.PORT || 3001;
     app.listen(PORT, () => {
       console.log(`Servidor rodando na porta ${PORT}`);
     });

@@ -43,7 +43,7 @@ sequelize.sync()
         if (!tarefa) {
           res.status(404).send('Tarefa não encontrada');
         } else {
-          await tarefa.update({ descricao, status });
+          await tarefa.update({ descricao, status }); // Atualize tanto a descrição quanto o status
           res.json(tarefa);
         }
       } catch (error) {

@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Sequelize, DataTypes } = require('sequelize');
+const cors = require('cors');  
 
 const app = express();
-app.use(bodyParser.json());
+app.use(cors());
 
 // Conectar ao banco de dados Postgres
 const sequelize = new Sequelize('sua_basedados', 'seu_usuario', 'sua_senha', {

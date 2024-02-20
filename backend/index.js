@@ -1,28 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { Sequelize, DataTypes } = require('sequelize');
-const cors = require('cors');  
+const cors = require('cors');
+const { sequelize, Tarefa } = require('./db');
 
 const app = express();
+app.use(bodyParser.json());
 app.use(cors());
 
-// Conectar ao banco de dados Postgres
-const sequelize = new Sequelize('sua_basedados', 'seu_usuario', 'sua_senha', {
-  host: 'localhost',
-  dialect: 'postgres',
-});
 
-// Definir modelo para a Tarefa
-const Tarefa = sequelize.define('Tarefa', {
-  descricao: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  status: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
 
 // Sincronizar o modelo com o banco de dados
 sequelize.sync()

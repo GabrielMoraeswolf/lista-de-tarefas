@@ -2,31 +2,61 @@ import React, { useState } from 'react';
 
 const TaskItem = ({ task, editTask, removeTask }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [updatedTaskName, setUpdatedTaskName] = useState(task.name);
+  const [updatedTaskName, setUpdatedTaskName] = useState(task.descricao);
+  const [updatedStatus, setUpdatedStatus] = useState(task.status);
 
   const handleEdit = () => {
     setIsEditing(true);
   };
 
   const handleSave = () => {
-    editTask(task.id, updatedTaskName);
+    editTask(task.id, updatedTaskName, updatedStatus);
     setIsEditing(false);
   };
 
   return (
     <li>
       {isEditing ? (
-        <>
-          <input
-            type="text"
-            value={updatedTaskName}
-            onChange={(e) => setUpdatedTaskName(e.target.value)}
-          />
-          <button onClick={handleSave}>Salvar</button>
+         <>
+         <input
+           type="text"
+           value={updatedTaskName}
+           onChange={(e) => setUpdatedTaskName(e.target.value)}
+         />
+         <div>
+           <label>
+             <input
+               type="radio"
+               value="Pendente"
+               checked={updatedStatus === 'Pendente'}
+               onChange={() => setUpdatedStatus('Pendente')}
+             />
+             Pendente
+           </label>
+           <label>
+             <input
+               type="radio"
+               value="Finalizada"
+               checked={updatedStatus === 'Finalizada'}
+               onChange={() => setUpdatedStatus('Finalizada')}
+             />
+             Finalizada
+           </label>
+           <label>
+             <input
+               type="radio"
+               value="Cancelada"
+               checked={updatedStatus === 'Cancelada'}
+               onChange={() => setUpdatedStatus('Cancelada')}
+             />
+             Cancelada
+           </label>
+         </div>
+         <button onClick={handleSave}>Salvar</button>
         </>
       ) : (
         <>
-          {task.name} ({task.status})
+          {task.descricao} ({task.status})
           <button onClick={handleEdit}>Editar</button>
           <button onClick={() => removeTask(task.id)}>Remover</button>
         </>

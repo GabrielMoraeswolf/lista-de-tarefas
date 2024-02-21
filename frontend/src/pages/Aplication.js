@@ -4,6 +4,7 @@ import TaskList from '../components/TaskList';
 import axios from 'axios';
 import './styles.css';
 import Footer from './footer/Footer';
+
 const Aplication = () => {
   const [tasks, setTasks] = useState([]);
   const [showAllTasks, setShowAllTasks] = useState(false);
@@ -15,12 +16,9 @@ const Aplication = () => {
     }
   }, [showAllTasks]);
 
-  // Função para buscar tarefas do backend e atualizar o estado
   const fetchTasks = async () => {
     try {
       let url = 'http://localhost:3001/tarefas';
-
-      // Se o filtro por status estiver ativo, adiciona o parâmetro à URL
       if (filterStatus) {
         url = `http://localhost:3001/tarefas/status/${filterStatus}`;
       }
@@ -32,11 +30,9 @@ const Aplication = () => {
       console.error('Erro ao obter tarefas:', error);
     }
   };
-
-  // Chamada inicial para buscar tarefas quando o componente montar
   useEffect(() => {
     fetchTasks();
-  }, [filterStatus]); // Atualize a chamada quando o filtro de status mudar
+  }, [filterStatus]); 
 
   const addTask = async (taskName) => {
     try {
@@ -93,16 +89,16 @@ const Aplication = () => {
         <div className="containerBox">
             <h2 className="titule">Lista de Tarefas</h2>
             <TaskForm addTask={addTask} />
-            <button onClick={showAllTasksHandler}>Lista de Tarefas</button>
+            <button onClick={showAllTasksHandler} className='buttonList'>Lista de Tarefas</button>
             <div>
                 <h4>Filtrar Tarefas</h4>
                 <div>
-                    <label>
+                    <label >
                         <input
                             type="radio"
                             value="Pendente"
                             checked={filterStatus === 'Pendente'}
-                            onChange={() => filterStatusHandler('Pendente')}
+                            onChange={() => filterStatusHandler('Pendente')}                    
                         /> Pendente
                     </label>
 
@@ -124,8 +120,8 @@ const Aplication = () => {
                     /> Cancelada
                     </label>
                 </div>
-                <button onClick={showAllTasksHandler}>Filtrar Tarefas</button>
-                <button  onClick={clearFilterHandler} > Limpar Filtro</button>
+                <button onClick={showAllTasksHandler} className='buttonFilter'>Filtrar Tarefas</button>
+                <button  onClick={clearFilterHandler} className='buttonFilterClean'> Limpar Filtro</button>
             </div>
             {showAllTasks && <TaskList tasks={tasks} editTask={editTask} removeTask={removeTask} />}
         </div>

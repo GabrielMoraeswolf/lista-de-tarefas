@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './stylesComponent/TaskItem.css';
 
 const TaskItem = ({ task, editTask, removeTask }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -22,6 +23,7 @@ const TaskItem = ({ task, editTask, removeTask }) => {
            type="text"
            value={updatedTaskName}
            onChange={(e) => setUpdatedTaskName(e.target.value)}
+           className='input'
          />
          <div>
            <label>
@@ -52,13 +54,13 @@ const TaskItem = ({ task, editTask, removeTask }) => {
              Cancelada
            </label>
          </div>
-         <button onClick={handleSave}>Salvar</button>
+         <button onClick={handleSave} className='buttonSave'>Salvar</button>
         </>
       ) : (
         <>
           {task.descricao} ({task.status})
-          <button onClick={handleEdit}>Editar</button>
-          <button onClick={() => removeTask(task.id)}>Remover</button>
+          <button onClick={handleEdit} className='button'>Editar</button>
+          <button onClick={() => removeTask(task.id)} className='button'>Remover</button>
         </>
       )}
     </li>

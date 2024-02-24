@@ -71,6 +71,14 @@ Ao clicar no botão "Editar", vai abrir um campo para que possa ser feita a edi�
 
 Um botão ao lado de "Editar", presente em todos os itens na lista que irá remover a tarefa da lista.
 
+## Back-End e Banco de dados:
+
+Para utilizar o sistema, você deve ter em sua máquina o PostgreSQL instalado e alterar os valores em ".env" 'DB_USERNAME' para o nome de usuário colocado e o 'DB_PASSWORD' que se refere à senha criada depois da instalação do banco de dados PostgreSQL. Os demais valores podem ser mantidos por padrão.
+
+Pode ser baixado no link abaixo:
+
+https://www.postgresql.org/download/
+
 ## Tecnologias usadas:
 
 <table>
